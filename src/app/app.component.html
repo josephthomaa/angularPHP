@@ -7,5 +7,13 @@
  
 </div>
 
-
+<div *ngIf="error">{{error}}</div>
+<div *ngIf="success">{{success}}</div>
+    
+<div id="theList">
+  <h2>The list</h2>
+  <ul>
+    <li *ngFor="let item of languages">{{item.name}} | {{item.details}} </li>
+  </ul>
+</div>
 <router-outlet></router-outlet>
