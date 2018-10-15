@@ -2,6 +2,7 @@
 /**
  * Returns the list of languages.
  */
+
 require 'connect.php';
     
 $languages = [];

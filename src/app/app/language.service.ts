@@ -11,8 +11,8 @@ import { Language } from './language';
 })
 export class LanguageService {
 
-  baseUrl = 'http://localhost/api';
-languages: Language[];
+  baseUrl = 'http://localhost:8079/learnAngular/api';
+  languages: Language[];
                 
 constructor(private http: HttpClient) { }
                 
