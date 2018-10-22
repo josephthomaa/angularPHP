@@ -52,4 +52,32 @@ export class AppComponent implements OnInit {
       }
     );
   }
+  //Updata
+  updateLanguage(name, details, id) {
+    this.success = '';
+    this.error = '';
+
+    this.languageService.update({ name: name.value, details: details.value, id: +id })
+      .subscribe(
+        (res) => {
+          this.languages    = res;
+          this.success = 'Updated successfully';
+        },
+        (err) => this.error = err
+      );
+  }
+  //delete
+  deleteLanguage(id) {
+    this.success = '';
+    this.error   = '';
+    
+    this.languageService.delete(+id)
+      .subscribe(
+        (res: Language[]) => {
+          this.languages = res;
+          this.success = 'Deleted successfully';
+        },
+        (err) => this.error = err
+      );
+}
 }

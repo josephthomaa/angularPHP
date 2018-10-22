@@ -34,6 +34,37 @@ constructor(private http: HttpClient) { }
       catchError(this.handleError));
 }
 
+update(language: Language): Observable<Language[]> {
+  return this.http.put(`${this.baseUrl}/update`, { data: language })
+    .pipe(map((res) => {
+      const upLan = this.languages.find((item) => {
+        return +item['id'] === +language['id'];
+      });
+      if (upLan) {
+        upLan['price'] = +language['price'];
+        upLan['model'] = language['model'];
+      }
+      return this.languages;
+    }),
+    catchError(this.handleError));
+}
+
+delete(id: number): Observable<Language[]> {
+  const params = new HttpParams()
+    .set('id', id.toString());
+
+  return this.http.delete(`${this.baseUrl}/delete`, { params: params })
+    .pipe(map(res => {
+      const filteredlanguages = this.languages.filter((language) => {
+        return +language['id'] !== +id;
+      });
+      return this.languages = filteredlanguages;
+    }),
+    catchError(this.handleError));
+}
+
+
+
   private handleError(error: HttpErrorResponse) {
     console.log(error);
    
