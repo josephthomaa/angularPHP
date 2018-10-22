@@ -20,6 +20,28 @@ export class AppComponent implements OnInit {
   ngOnInit(){
     this.getLanguages();
   }
+  language= new Language('','',0);
+  //Create new language
+  addLanguage(f) {
+    this.error = '';
+    this.success = '';
+
+    this.languageService.store(this.language)
+      .subscribe(
+        (res: Language[]) => {
+          // Update the list of cars
+          this.languages = res;
+
+          // Inform the user
+          this.success = 'Created successfully';
+
+          // Reset the form
+          f.reset();
+        },
+        (err) => this.error = err
+      );
+}
+  //get language list-Retrive
   getLanguages(): void {
     this.languageService.getAll().subscribe(
       (res: Language[]) => {

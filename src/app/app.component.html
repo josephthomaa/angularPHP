@@ -11,9 +11,44 @@
 <div *ngIf="success">{{success}}</div>
     
 <div id="theList">
-  <h2>The list</h2>
+  <h2 style="text-align:center">The list</h2>
   <ul>
     <li *ngFor="let item of languages">{{item.name}} | {{item.details}} </li>
   </ul>
+</div>
+
+<div id="theForm">
+  <h2>The form</h2>
+  <form #f="ngForm" name="theForm" (submit)="addLanguage(f)"  style="padding: 0px 50% 0px 10px;">
+    <div class="form-group">
+      <label>Language</label>
+      <input type="text" class="form-control" name="name" [(ngModel)]="language.name" #languageName="ngModel" required pattern="^[a-zA-Z]+$">
+      <span class="help-block danger" *ngIf="languageName.errors?.required && languageName.touched">
+        The name is required
+      </span>
+      <span class="help-block danger" *ngIf="languageName.errors?.pattern && languageName.touched">
+        The name can only contain the letters a-z or A-Z
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label>details</label>
+      <input type="text" class="form-control" name="details" required [(ngModel)]="language.details" #languageDetails="ngModel">
+      <span class="help-block danger" *ngIf="languageDetails.errors?.required && languageDetails.touched">
+        The details is required
+      </span>
+    </div>
+    <div class="form-group">
+      <label>Version</label>
+      <input type="text" class="form-control" name="version" required [(ngModel)]="language.version" #languageVersion="ngModel">
+      <span class="help-block danger" *ngIf="languageVersion.errors?.required && languageVersion.touched">
+        The price is required
+      </span>
+    </div>
+
+    <button
+        class="btn btn-primary btn-sm"
+        [disabled]="f.invalid">Add</button>
+  </form>
 </div>
 <router-outlet></router-outlet>

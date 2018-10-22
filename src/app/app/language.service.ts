@@ -24,6 +24,16 @@ constructor(private http: HttpClient) { }
     }),
   catchError(this.handleError));
   }
+
+  store(language: Language): Observable<Language[]> {
+    return this.http.post(`${this.baseUrl}/store`, { data: language })
+      .pipe(map((res) => {
+        this.languages.push(res['data']);
+        return this.languages;
+      }),
+      catchError(this.handleError));
+}
+
   private handleError(error: HttpErrorResponse) {
     console.log(error);
    
